@@ -1,0 +1,112 @@
+﻿@model IEnumerable<Assignment.MemberDetail>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmailName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Mobile)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NIC)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.YearOfLeaving)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastClass)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProfilePic)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Occupation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProfessionalQualifications)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ActivitiesDuringSchool)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AdmissionNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateOfAdmission)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmailName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Mobile)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NIC)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.YearOfLeaving)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastClass)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProfilePic)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Occupation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProfessionalQualifications)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ActivitiesDuringSchool)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AdmissionNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateOfAdmission)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.UserName }) |
+            @Html.ActionLink("Details", "Details", new { id=item.UserName }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.UserName })
+        </td>
+    </tr>
+}
+
+</table>

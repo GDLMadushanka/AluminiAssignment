@@ -1,0 +1,131 @@
+﻿@model Assignment.MemberDetail
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>MemberDetail</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmailName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmailName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Mobile)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Mobile)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NIC)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NIC)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.YearOfLeaving)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.YearOfLeaving)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastClass)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastClass)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProfilePic)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProfilePic)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Occupation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Occupation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProfessionalQualifications)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProfessionalQualifications)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ActivitiesDuringSchool)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ActivitiesDuringSchool)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AdmissionNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AdmissionNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateOfAdmission)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateOfAdmission)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.UserName }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
