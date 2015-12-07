@@ -18,7 +18,7 @@
           <Property Name="YearOfLeaving" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="LastClass" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="Address" Type="nvarchar" MaxLength="70" Nullable="false" />
-          <Property Name="ProfilePic" Type="image" Nullable="false" />
+          <Property Name="ProfilePic" Type="varbinary(max)" />
           <Property Name="Occupation" Type="nvarchar" MaxLength="30" />
           <Property Name="ProfessionalQualifications" Type="nvarchar" MaxLength="30" />
           <Property Name="ActivitiesDuringSchool" Type="nvarchar" MaxLength="30" />
@@ -121,8 +121,8 @@ warning 6002: The table/view 'StudentAlumini.dbo.Notifications' does not have a 
           <Property Name="RoleId" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6035: The relationship 'FK__MemberDet__UserN__35BCFE0A' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
-        <Association Name="FK__MemberDet__UserN__35BCFE0A" />-->
+warning 6035: The relationship 'FK__MemberDet__UserN__4BAC3F29' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK__MemberDet__UserN__4BAC3F29" />-->
         <!--Errors Found During Generation:
 warning 6035: The relationship 'FK__Nominatio__Nomin__300424B4' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
         <Association Name="FK__Nominatio__Nomin__300424B4" />-->
@@ -213,7 +213,7 @@ warning 6035: The relationship 'FK__Proposal__Owner__3A81B327' has columns that 
           <Property Name="YearOfLeaving" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="LastClass" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Address" Type="String" MaxLength="70" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ProfilePic" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="ProfilePic" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="Occupation" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="ProfessionalQualifications" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="ActivitiesDuringSchool" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
@@ -311,7 +311,7 @@ warning 6035: The relationship 'FK__Proposal__Owner__3A81B327' has columns that 
           <End Role="webpages_Roles" Type="Self.webpages_Roles" Multiplicity="*" />
           <End Role="Members" Type="Self.Member" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="StudentAluminiEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="StudentAluminiEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="MemberDetails" EntityType="Self.MemberDetail" />
           <EntitySet Name="Members" EntityType="Self.Member" />
           <EntitySet Name="Nominations" EntityType="Self.Nomination" />
@@ -331,7 +331,7 @@ warning 6035: The relationship 'FK__Proposal__Owner__3A81B327' has columns that 
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="StudentAluminiModelStoreContainer" CdmEntityContainer="StudentAluminiEntities">
+        <EntityContainerMapping StorageEntityContainer="StudentAluminiModelStoreContainer" CdmEntityContainer="StudentAluminiEntities1">
           <EntitySetMapping Name="MemberDetails">
             <EntityTypeMapping TypeName="StudentAluminiModel.MemberDetail">
               <MappingFragment StoreEntitySet="MemberDetails">

@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using Assignment.Models;
 using WebMatrix.WebData;
 namespace Assignment.Controllers
 {
     public class AccountController : Controller
     {
+        private StudentAluminiEntities1 db = new StudentAluminiEntities1();
         [HttpGet]
         public ActionResult Login()
         {
@@ -22,11 +24,19 @@ namespace Assignment.Controllers
             {
                 if (WebSecurity.Login(userdata.UserName, userdata.Password))
                 {
-                    if (returnUrl != null)
+                    var current = db.MemberDetails.Where(m => m.UserName == userdata.UserName);
+                    if (current.ToList().Count > 0)
                     {
-                        return Redirect(returnUrl);
+                        if (returnUrl != null)
+                        {
+                            return Redirect(returnUrl);
+                        }
+                        return RedirectToAction("Index", "Home");
                     }
-                    return RedirectToAction("Index", "Home");
+                    else
+                    {
+                        return RedirectToAction("Create", "MemberDetails");
+                    }
                 }
                 else
                 {
@@ -51,13 +61,16 @@ namespace Assignment.Controllers
                 try
                 {
                     WebSecurity.CreateUserAndAccount(userdata.UserName, userdata.Password);
+                    String[] names=new string[1];
+                    names[0] = userdata.UserName;
+                    Roles.AddUsersToRole(names, "Normal");
                 }
                 catch (System.Web.Security.MembershipCreateUserException ex)
                 {
                     ModelState.AddModelError("", "Sorry the user name alredy exists");
                     return View(userdata);
                 }
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Account");
             }
             ModelState.AddModelError("", "Sorry the user name alredy exists");
             return View(userdata);

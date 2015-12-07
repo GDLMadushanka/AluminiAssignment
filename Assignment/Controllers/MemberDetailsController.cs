@@ -6,13 +6,14 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using Assignment;
-
+using WebMatrix.WebData;
 namespace Assignment.Controllers
 {
     public class MemberDetailsController : Controller
     {
-        private StudentAluminiEntities db = new StudentAluminiEntities();
+        private StudentAluminiEntities1 db = new StudentAluminiEntities1();
 
         // GET: MemberDetails
         public ActionResult Index()
@@ -48,6 +49,8 @@ namespace Assignment.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "UserName,FirstName,LastName,EmailName,Mobile,NIC,YearOfLeaving,LastClass,Address,ProfilePic,Occupation,ProfessionalQualifications,ActivitiesDuringSchool,AdmissionNumber,DateOfAdmission")] MemberDetail memberDetail)
         {
+            memberDetail.UserName = Membership.GetUser().UserName;
+            
             if (ModelState.IsValid)
             {
                 db.MemberDetails.Add(memberDetail);

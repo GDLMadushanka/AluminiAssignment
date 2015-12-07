@@ -13,10 +13,10 @@ namespace Assignment
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class StudentAluminiEntities : DbContext
+    public partial class StudentAluminiEntities1 : DbContext
     {
-        public StudentAluminiEntities()
-            : base("name=StudentAluminiEntities")
+        public StudentAluminiEntities1()
+            : base("name=StudentAluminiEntities1")
         {
         }
     

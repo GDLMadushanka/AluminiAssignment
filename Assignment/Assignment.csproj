@@ -145,78 +145,79 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\MemberDetailsController.cs" />
-    <Compile Include="DBEntities.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DBEntities.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBEntities.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DBEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBEntities.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DBEntities.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Member.cs">
-      <DependentUpon>DBEntities.tt</DependentUpon>
+      <DependentUpon>ModelAlumini.tt</DependentUpon>
     </Compile>
     <Compile Include="MemberDetail.cs">
-      <DependentUpon>DBEntities.tt</DependentUpon>
+      <DependentUpon>ModelAlumini.tt</DependentUpon>
     </Compile>
+    <Compile Include="ModelAlumini.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelAlumini.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelAlumini.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelAlumini.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelAlumini.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelAlumini.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBContext.cs" />
     <Compile Include="Models\UserLogin.cs" />
     <Compile Include="Nomination.cs">
-      <DependentUpon>DBEntities.tt</DependentUpon>
+      <DependentUpon>ModelAlumini.tt</DependentUpon>
     </Compile>
     <Compile Include="Notification.cs">
-      <DependentUpon>DBEntities.tt</DependentUpon>
+      <DependentUpon>ModelAlumini.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Proposal.cs">
-      <DependentUpon>DBEntities.tt</DependentUpon>
+      <DependentUpon>ModelAlumini.tt</DependentUpon>
     </Compile>
     <Compile Include="sysdiagram.cs">
-      <DependentUpon>DBEntities.tt</DependentUpon>
+      <DependentUpon>ModelAlumini.tt</DependentUpon>
     </Compile>
     <Compile Include="webpages_Membership.cs">
-      <DependentUpon>DBEntities.tt</DependentUpon>
+      <DependentUpon>ModelAlumini.tt</DependentUpon>
     </Compile>
     <Compile Include="webpages_OAuthMembership.cs">
-      <DependentUpon>DBEntities.tt</DependentUpon>
+      <DependentUpon>ModelAlumini.tt</DependentUpon>
     </Compile>
     <Compile Include="webpages_Roles.cs">
-      <DependentUpon>DBEntities.tt</DependentUpon>
+      <DependentUpon>ModelAlumini.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="DBEntities.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DBEntities.edmx</DependentUpon>
-      <LastGenOutput>DBEntities.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="DBEntities.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DBEntities.edmx</DependentUpon>
-      <LastGenOutput>DBEntities.cs</LastGenOutput>
-    </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="ModelAlumini.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelAlumini.edmx</DependentUpon>
+      <LastGenOutput>ModelAlumini.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="ModelAlumini.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelAlumini.edmx</DependentUpon>
+      <LastGenOutput>ModelAlumini.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="DBEntities.edmx">
+    <EntityDeploy Include="ModelAlumini.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DBEntities.Designer.cs</LastGenOutput>
+      <LastGenOutput>ModelAlumini.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="DBEntities.edmx.diagram">
-      <DependentUpon>DBEntities.edmx</DependentUpon>
+    <Content Include="ModelAlumini.edmx.diagram">
+      <DependentUpon>ModelAlumini.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -246,6 +247,11 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Notifications\Create.cshtml" />
+    <Content Include="Views\Notifications\Delete.cshtml" />
+    <Content Include="Views\Notifications\Details.cshtml" />
+    <Content Include="Views\Notifications\Edit.cshtml" />
+    <Content Include="Views\Notifications\Index.cshtml" />
     <Content Include="Views\MemberDetails\Create.cshtml" />
     <Content Include="Views\MemberDetails\Delete.cshtml" />
     <Content Include="Views\MemberDetails\Details.cshtml" />
