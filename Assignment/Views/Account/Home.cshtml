@@ -1,0 +1,122 @@
+﻿
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Hello @Session["FirstName"] @Session["LastName"] </h2>
+<h5>Role: @ViewBag.role</h5>
+
+@{
+    List<Notification> list = (List<Notification>)ViewBag.notifications;
+ }
+
+<div class="btn-group show-on-hover">
+    <a href="#" class="btn btn-info">Notifications (@list.Count)</a>
+    <a aria-expanded="true" href="#" class="btn btn-info dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+    <ul class="dropdown-menu">
+
+        @foreach (var item in list)
+        {
+
+<li> <a data-id="@item.UserName" class="open-AddBookDialog"  href="#myModal" data-idd="@item.notificationID">@item.NotificationText</a>
+</li>
+
+        
+
+        }
+    </ul>
+</div>
+
+
+
+
+
+
+
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Verification</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Do you wont to verify this member
+                </p>
+                <p id="bookId"></p><p id="notiId"></p>
+
+                <a href="#" class="btn btn-success" id="subbmit">Accept</a>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+
+    $(document).ready(function () {
+
+        $('#subbmit').on('click', function (evt) {
+     
+            var noticeId = $('#bookId').text();
+            console.log("here");
+            console.log(noticeId);
+            
+                $.getJSON("@Url.Action("Accept", "Nomination", new { noticeId="_noticeId"})".replace("_noticeId", noticeId), function (data) {
+                });
+
+
+           
+
+            $('#myModal').modal('hide');
+                    });
+
+
+        
+      
+
+        $(".open-AddBookDialog").click(function () {
+            var _self = $(this);
+            var notiid = _self.data('idd');
+            console.log(notiid);
+            $.getJSON("@Url.Action("caughtNotification", "Notification", new { notificationID = "_notiId" })".replace("_notiId", notiid), function (data) {
+            });
+        });
+    
+        $(document).on("click", ".open-AddBookDialog", function (e) {
+    
+            e.preventDefault();
+
+            var _self = $(this);
+
+            var myBookId = _self.data('id');
+            var notId = _self.data('idd');
+
+            $("#bookId").text(myBookId);
+            $("#notiId").text(notId);
+            
+
+            $(_self.attr('href')).modal('show');
+        });
+
+
+    });
+
+
+
+
+
+
+
+
+
+
+</script>

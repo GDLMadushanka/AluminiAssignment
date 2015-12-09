@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="StudentAluminiModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="StudentAluminiModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="MemberDetails">
           <Key>
             <PropertyRef Name="UserName" />
@@ -18,6 +18,7 @@
           <Property Name="YearOfLeaving" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="LastClass" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="Address" Type="nvarchar" MaxLength="70" Nullable="false" />
+          <Property Name="Approved" Type="bit" Nullable="false" />
           <Property Name="ProfilePic" Type="varbinary(max)" />
           <Property Name="Occupation" Type="nvarchar" MaxLength="30" />
           <Property Name="ProfessionalQualifications" Type="nvarchar" MaxLength="30" />
@@ -44,14 +45,11 @@
           <Property Name="AdminAcceptState" Type="bit" Nullable="false" />
           <Property Name="Approved" Type="bit" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'StudentAlumini.dbo.Notifications' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Notifications">
           <Key>
-            <PropertyRef Name="Caught" />
-            <PropertyRef Name="Destination" />
-            <PropertyRef Name="NotificationText" />
+            <PropertyRef Name="notificationID" />
           </Key>
+          <Property Name="notificationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="56" />
           <Property Name="Caught" Type="bit" Nullable="false" />
           <Property Name="Destination" Type="nvarchar" MaxLength="56" Nullable="false" />
@@ -121,8 +119,8 @@ warning 6002: The table/view 'StudentAlumini.dbo.Notifications' does not have a 
           <Property Name="RoleId" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6035: The relationship 'FK__MemberDet__UserN__4BAC3F29' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
-        <Association Name="FK__MemberDet__UserN__4BAC3F29" />-->
+warning 6035: The relationship 'FK__MemberDet__UserN__5070F446' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK__MemberDet__UserN__5070F446" />-->
         <!--Errors Found During Generation:
 warning 6035: The relationship 'FK__Nominatio__Nomin__300424B4' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
         <Association Name="FK__Nominatio__Nomin__300424B4" />-->
@@ -133,11 +131,11 @@ warning 6035: The relationship 'FK__Nominatio__Nomin__30F848ED' has columns that
 warning 6035: The relationship 'FK__Nominatio__UserN__2F10007B' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
         <Association Name="FK__Nominatio__UserN__2F10007B" />-->
         <!--Errors Found During Generation:
-warning 6035: The relationship 'FK__Notificat__Desti__3D5E1FD2' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
-        <Association Name="FK__Notificat__Desti__3D5E1FD2" />-->
+warning 6035: The relationship 'FK__Notificat__Desti__5629CD9C' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK__Notificat__Desti__5629CD9C" />-->
         <!--Errors Found During Generation:
-warning 6035: The relationship 'FK__Notificat__UserN__3C69FB99' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
-        <Association Name="FK__Notificat__UserN__3C69FB99" />-->
+warning 6035: The relationship 'FK__Notificat__UserN__5535A963' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK__Notificat__UserN__5535A963" />-->
         <!--Errors Found During Generation:
 warning 6035: The relationship 'FK__Proposal__Owner__3A81B327' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
         <Association Name="FK__Proposal__Owner__3A81B327" />-->
@@ -169,23 +167,13 @@ warning 6035: The relationship 'FK__Proposal__Owner__3A81B327' has columns that 
           <EntitySet Name="MemberDetails" EntityType="Self.MemberDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Members" EntityType="Self.Members" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Nominations" EntityType="Self.Nominations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notifications" EntityType="Self.Notifications" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Proposal" EntityType="Self.Proposal" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="webpages_Membership" EntityType="Self.webpages_Membership" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="webpages_OAuthMembership" EntityType="Self.webpages_OAuthMembership" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="webpages_Roles" EntityType="Self.webpages_Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="webpages_UsersInRoles" EntityType="Self.webpages_UsersInRoles" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Notifications" EntityType="Self.Notifications" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Notifications].[UserName] AS [UserName], 
-    [Notifications].[Caught] AS [Caught], 
-    [Notifications].[Destination] AS [Destination], 
-    [Notifications].[NotificationText] AS [NotificationText], 
-    [Notifications].[ProposalID] AS [ProposalID], 
-    [Notifications].[MeetingID] AS [MeetingID], 
-    [Notifications].[AmmendID] AS [AmmendID]
-    FROM [dbo].[Notifications] AS [Notifications]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="fk_RoleId" Association="Self.fk_RoleId">
             <End Role="webpages_Roles" EntitySet="webpages_Roles" />
             <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
@@ -195,8 +183,7 @@ warning 6035: The relationship 'FK__Proposal__Owner__3A81B327' has columns that 
             <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="StudentAluminiModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -219,6 +206,7 @@ warning 6035: The relationship 'FK__Proposal__Owner__3A81B327' has columns that 
           <Property Name="ActivitiesDuringSchool" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="AdmissionNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="DateOfAdmission" Type="DateTime" Precision="0" />
+          <Property Name="Approved" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Member">
           <Key>
@@ -293,20 +281,6 @@ warning 6035: The relationship 'FK__Proposal__Owner__3A81B327' has columns that 
           <Property Name="RoleName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Members" Relationship="Self.webpages_UsersInRoles" FromRole="webpages_Roles" ToRole="Members" />
         </EntityType>
-        <EntityType Name="Notification">
-          <Key>
-            <PropertyRef Name="Caught" />
-            <PropertyRef Name="Destination" />
-            <PropertyRef Name="NotificationText" />
-          </Key>
-          <Property Name="UserName" Type="String" MaxLength="56" FixedLength="false" Unicode="true" />
-          <Property Name="Caught" Type="Boolean" Nullable="false" />
-          <Property Name="Destination" Type="String" MaxLength="56" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="NotificationText" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ProposalID" Type="Int32" />
-          <Property Name="MeetingID" Type="Int32" />
-          <Property Name="AmmendID" Type="Int32" />
-        </EntityType>
         <Association Name="webpages_UsersInRoles">
           <End Role="webpages_Roles" Type="Self.webpages_Roles" Multiplicity="*" />
           <End Role="Members" Type="Self.Member" Multiplicity="*" />
@@ -320,12 +294,25 @@ warning 6035: The relationship 'FK__Proposal__Owner__3A81B327' has columns that 
           <EntitySet Name="webpages_Membership" EntityType="Self.webpages_Membership" />
           <EntitySet Name="webpages_OAuthMembership" EntityType="Self.webpages_OAuthMembership" />
           <EntitySet Name="webpages_Roles" EntityType="Self.webpages_Roles" />
-          <EntitySet Name="Notifications" EntityType="Self.Notification" />
           <AssociationSet Name="webpages_UsersInRoles" Association="Self.webpages_UsersInRoles">
             <End Role="webpages_Roles" EntitySet="webpages_Roles" />
             <End Role="Members" EntitySet="Members" />
           </AssociationSet>
+          <EntitySet Name="Notifications" EntityType="StudentAluminiModel.Notification" />
         </EntityContainer>
+        <EntityType Name="Notification">
+          <Key>
+            <PropertyRef Name="notificationID" />
+          </Key>
+          <Property Name="notificationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="56" FixedLength="false" Unicode="true" />
+          <Property Name="Caught" Type="Boolean" Nullable="false" />
+          <Property Name="Destination" Type="String" Nullable="false" MaxLength="56" FixedLength="false" Unicode="true" />
+          <Property Name="NotificationText" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ProposalID" Type="Int32" />
+          <Property Name="MeetingID" Type="Int32" />
+          <Property Name="AmmendID" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -335,6 +322,7 @@ warning 6035: The relationship 'FK__Proposal__Owner__3A81B327' has columns that 
           <EntitySetMapping Name="MemberDetails">
             <EntityTypeMapping TypeName="StudentAluminiModel.MemberDetail">
               <MappingFragment StoreEntitySet="MemberDetails">
+                <ScalarProperty Name="Approved" ColumnName="Approved" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
@@ -430,19 +418,6 @@ warning 6035: The relationship 'FK__Proposal__Owner__3A81B327' has columns that 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Notifications">
-            <EntityTypeMapping TypeName="StudentAluminiModel.Notification">
-              <MappingFragment StoreEntitySet="Notifications">
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="Caught" ColumnName="Caught" />
-                <ScalarProperty Name="Destination" ColumnName="Destination" />
-                <ScalarProperty Name="NotificationText" ColumnName="NotificationText" />
-                <ScalarProperty Name="ProposalID" ColumnName="ProposalID" />
-                <ScalarProperty Name="MeetingID" ColumnName="MeetingID" />
-                <ScalarProperty Name="AmmendID" ColumnName="AmmendID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <AssociationSetMapping Name="webpages_UsersInRoles" TypeName="StudentAluminiModel.webpages_UsersInRoles" StoreEntitySet="webpages_UsersInRoles">
             <EndProperty Name="webpages_Roles">
               <ScalarProperty Name="RoleId" ColumnName="RoleId" />
@@ -451,6 +426,20 @@ warning 6035: The relationship 'FK__Proposal__Owner__3A81B327' has columns that 
               <ScalarProperty Name="UserId" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Notifications">
+            <EntityTypeMapping TypeName="StudentAluminiModel.Notification">
+              <MappingFragment StoreEntitySet="Notifications">
+                <ScalarProperty Name="AmmendID" ColumnName="AmmendID" />
+                <ScalarProperty Name="MeetingID" ColumnName="MeetingID" />
+                <ScalarProperty Name="ProposalID" ColumnName="ProposalID" />
+                <ScalarProperty Name="NotificationText" ColumnName="NotificationText" />
+                <ScalarProperty Name="Destination" ColumnName="Destination" />
+                <ScalarProperty Name="Caught" ColumnName="Caught" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="notificationID" ColumnName="notificationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -465,8 +454,8 @@ warning 6035: The relationship 'FK__Proposal__Owner__3A81B327' has columns that 
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>

@@ -142,9 +142,13 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\MemberDetailsController.cs" />
+    <Compile Include="Controllers\NominationController.cs" />
+    <Compile Include="Controllers\NotificationController.cs" />
+    <Compile Include="Controllers\ProposalsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -169,6 +173,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelAlumini.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\AssignRoles.cs" />
     <Compile Include="Models\DBContext.cs" />
     <Compile Include="Models\UserLogin.cs" />
     <Compile Include="Nomination.cs">
@@ -219,9 +224,10 @@
     <Content Include="ModelAlumini.edmx.diagram">
       <DependentUpon>ModelAlumini.edmx</DependentUpon>
     </Content>
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery-2.1.4.intellisense.js" />
+    <Content Include="Scripts\jquery-2.1.4.js" />
+    <Content Include="Scripts\jquery-2.1.4.min.js" />
+    <Content Include="Scripts\jquery-2.1.4.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -257,9 +263,19 @@
     <Content Include="Views\MemberDetails\Details.cshtml" />
     <Content Include="Views\MemberDetails\Edit.cshtml" />
     <Content Include="Views\MemberDetails\Index.cshtml" />
+    <Content Include="Views\Admin\AddUsersToRoles.cshtml" />
+    <Content Include="Views\Account\addNominations.cshtml" />
+    <Content Include="Views\Account\Home.cshtml" />
+    <Content Include="Views\Proposals\Create.cshtml" />
+    <Content Include="Views\Proposals\Delete.cshtml" />
+    <Content Include="Views\Proposals\Details.cshtml" />
+    <Content Include="Views\Proposals\Edit.cshtml" />
+    <Content Include="Views\Proposals\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Nomination\" />
+    <Folder Include="Views\Notification\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -268,7 +284,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

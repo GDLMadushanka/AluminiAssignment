@@ -14,6 +14,7 @@ namespace Assignment
     
     public partial class Notification
     {
+        public int notificationID { get; set; }
         public string UserName { get; set; }
         public bool Caught { get; set; }
         public string Destination { get; set; }

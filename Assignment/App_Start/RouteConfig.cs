@@ -13,6 +13,18 @@ namespace Assignment
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            routes.MapRoute(    
+                name: "caughtNotification",
+                url: "Notification/caughtNotification/{notificationID}",
+                defaults: new { controller = "Notification", action = "caughtNotification" }
+            );
+
+            routes.MapRoute(
+                name: "Accept",
+                url: "Nomination/Accept/{noticeId}",
+                defaults: new { controller = "Nomination", action = "Accept" }
+            );
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

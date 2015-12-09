@@ -29,5 +29,6 @@ namespace Assignment
         public string ActivitiesDuringSchool { get; set; }
         public string AdmissionNumber { get; set; }
         public Nullable<System.DateTime> DateOfAdmission { get; set; }
+        public bool Approved { get; set; }
     }
 }

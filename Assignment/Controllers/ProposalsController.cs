@@ -6,114 +6,114 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
 using Assignment;
-using WebMatrix.WebData;
+using System.Web.Security;
+
 namespace Assignment.Controllers
 {
-    public class MemberDetailsController : Controller
+    public class ProposalsController : Controller
     {
         private StudentAluminiEntities1 db = new StudentAluminiEntities1();
 
-        // GET: MemberDetails
+        // GET: Proposals
         public ActionResult Index()
         {
-            return View(db.MemberDetails.ToList());
+            return View(db.Proposals.ToList());
         }
 
-        // GET: MemberDetails/Details/5
-        public ActionResult Details(string id)
+        // GET: Proposals/Details/5
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MemberDetail memberDetail = db.MemberDetails.Find(id);
-            if (memberDetail == null)
+            Proposal proposal = db.Proposals.Find(id);
+            if (proposal == null)
             {
                 return HttpNotFound();
             }
-            return View(memberDetail);
+            return View(proposal);
         }
 
-        // GET: MemberDetails/Create
+        // GET: Proposals/Create
         public ActionResult Create()
         {
+            ViewBag.name = Membership.GetUser().UserName;
             return View();
         }
 
-        // POST: MemberDetails/Create
+        // POST: Proposals/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "UserName,FirstName,LastName,EmailName,Mobile,NIC,YearOfLeaving,LastClass,Address,ProfilePic,Occupation,ProfessionalQualifications,ActivitiesDuringSchool,AdmissionNumber,DateOfAdmission")] MemberDetail memberDetail)
+        public ActionResult Create([Bind(Include = "Owner,ProposalID,Type,Description")] Proposal proposal)
         {
-            memberDetail.UserName = Membership.GetUser().UserName;
-            memberDetail.Approved = false;
+            proposal.ApprovalState = "Pending";
             if (ModelState.IsValid)
             {
-                db.MemberDetails.Add(memberDetail);
-                db.SaveChanges();
-                return RedirectToAction("addNominations","Account");
-            }
-
-            return View(memberDetail);
-        }
-
-        // GET: MemberDetails/Edit/5
-        public ActionResult Edit(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            MemberDetail memberDetail = db.MemberDetails.Find(id);
-            if (memberDetail == null)
-            {
-                return HttpNotFound();
-            }
-            return View(memberDetail);
-        }
-
-        // POST: MemberDetails/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UserName,FirstName,LastName,EmailName,Mobile,NIC,YearOfLeaving,LastClass,Address,ProfilePic,Occupation,ProfessionalQualifications,ActivitiesDuringSchool,AdmissionNumber,DateOfAdmission")] MemberDetail memberDetail)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(memberDetail).State = EntityState.Modified;
+                db.Proposals.Add(proposal);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(memberDetail);
+
+            return View(proposal);
         }
 
-        // GET: MemberDetails/Delete/5
-        public ActionResult Delete(string id)
+        // GET: Proposals/Edit/5
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MemberDetail memberDetail = db.MemberDetails.Find(id);
-            if (memberDetail == null)
+            Proposal proposal = db.Proposals.Find(id);
+            if (proposal == null)
             {
                 return HttpNotFound();
             }
-            return View(memberDetail);
+            return View(proposal);
         }
 
-        // POST: MemberDetails/Delete/5
+        // POST: Proposals/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "Owner,ProposalID,Type,Description,ApprovalState")] Proposal proposal)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(proposal).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(proposal);
+        }
+
+        // GET: Proposals/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Proposal proposal = db.Proposals.Find(id);
+            if (proposal == null)
+            {
+                return HttpNotFound();
+            }
+            return View(proposal);
+        }
+
+        // POST: Proposals/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(int id)
         {
-            MemberDetail memberDetail = db.MemberDetails.Find(id);
-            db.MemberDetails.Remove(memberDetail);
+            Proposal proposal = db.Proposals.Find(id);
+            db.Proposals.Remove(proposal);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

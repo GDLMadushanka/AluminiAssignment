@@ -1,0 +1,48 @@
+﻿@model Assignment.Nomination
+@{
+    ViewBag.Title = "addNominations";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    List<String> names = (List<String>)ViewBag.user;
+
+    List<SelectListItem> list = new List<SelectListItem>();
+    foreach (var item in names)
+    {
+
+        SelectListItem x = new SelectListItem() { Text = item, Value = item };
+        list.Add(x);
+    }
+}
+
+
+
+<h2>addNominations</h2>
+@using (Html.BeginForm())
+{
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Nomination1, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(c => c.Nomination1, list)
+        </div>
+    </div>
+    <br />
+    <br />
+    <div class="form-group">
+        @Html.LabelFor(model => model.Nomination2, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(c => c.Nomination2, list)
+        </div>
+    </div>
+    <br />
+    <br />
+   
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+
+}

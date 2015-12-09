@@ -24,19 +24,26 @@ namespace Assignment.Controllers
             {
                 if (WebSecurity.Login(userdata.UserName, userdata.Password))
                 {
-                    var current = db.MemberDetails.Where(m => m.UserName == userdata.UserName);
-                    if (current.ToList().Count > 0)
+                    Session["Logged"] = true;
+                    var current = db.MemberDetails.Where(m => m.UserName == userdata.UserName).ToList();
+
+
+                  
+                    if (current.Count > 0)
                     {
                         if (returnUrl != null)
                         {
                             return Redirect(returnUrl);
                         }
-                        return RedirectToAction("Index", "Home");
+                        Session["FirstName"] = current.ElementAt(0).FirstName;
+                        Session["LastName"] = current.ElementAt(0).LastName;
+                        return RedirectToAction("Home", "Account");
                     }
                     else
                     {
                         return RedirectToAction("Create", "MemberDetails");
                     }
+                    
                 }
                 else
                 {
@@ -61,9 +68,7 @@ namespace Assignment.Controllers
                 try
                 {
                     WebSecurity.CreateUserAndAccount(userdata.UserName, userdata.Password);
-                    String[] names=new string[1];
-                    names[0] = userdata.UserName;
-                    Roles.AddUsersToRole(names, "Normal");
+                    Roles.AddUserToRole(userdata.UserName, "Normal");
                 }
                 catch (System.Web.Security.MembershipCreateUserException ex)
                 {
@@ -77,9 +82,70 @@ namespace Assignment.Controllers
             
         }
 
+        public ActionResult addNominations()
+        {
+            String username = Membership.GetUser().UserName;
+            Nomination temp = db.Nominations.Find(username);
+            if (temp == null)
+            {
+                List<String> users = db.MemberDetails.Where(m => m.Approved == true).Select(c => c.UserName).ToList();
+                users.Remove("Lahiru"); // removing administrator
+                ViewBag.user = users;
+                return View();
+            }
+            else return RedirectToAction("Home","Account");
+        } 
+
+
+        [HttpPost]
+        public ActionResult addNominations(Nomination nomination)
+        {
+            nomination.UserName = Membership.GetUser().UserName;
+            nomination.Nomination1AcceptState = false;
+            nomination.Nomination2AcceptState = false;
+            nomination.AdminAcceptState = false;
+            nomination.Approved = false;
+            db.Nominations.Add(nomination);
+            db.SaveChanges();
+
+            // creating notifications for nominated users
+
+            Notification n1 = new Notification();
+            n1.UserName = Membership.GetUser().UserName;
+            n1.Caught = false;
+            n1.Destination = nomination.Nomination1;
+            n1.NotificationText = Membership.GetUser().UserName + " request you to verify his account";
+
+            Notification n2 = new Notification();
+            n2.UserName = Membership.GetUser().UserName;
+            n2.Caught = false;
+            n2.Destination = nomination.Nomination2;
+            n2.NotificationText = Membership.GetUser().UserName + " request you to verify his account";
+
+            db.Notifications.Add(n1);
+            db.Notifications.Add(n2);
+            db.SaveChanges();
+
+            return RedirectToAction("Index", "Home");
+        }
         public ActionResult LogOut()
         {
             WebSecurity.Logout();
+            return RedirectToAction("Index", "Home");
+        }
+
+
+        public ActionResult Home()
+        {
+            if ((bool)Session["Logged"])
+            {
+                String username = Membership.GetUser().UserName;
+                String[] roleList=   Roles.GetRolesForUser(username);
+                ViewBag.role = roleList[0];
+                var notifications = db.Notifications.Where(m => m.Destination.Equals(username) && m.Caught == false ).ToList();
+                ViewBag.notifications = notifications;
+                return View();
+            }
             return RedirectToAction("Index", "Home");
         }
     }
