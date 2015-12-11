@@ -174,6 +174,7 @@
       <DependentUpon>ModelAlumini.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\AssignRoles.cs" />
+    <Compile Include="Models\BusinessEntity.cs" />
     <Compile Include="Models\DBContext.cs" />
     <Compile Include="Models\UserLogin.cs" />
     <Compile Include="Nomination.cs">

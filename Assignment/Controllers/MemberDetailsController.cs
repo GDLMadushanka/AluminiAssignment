@@ -7,8 +7,12 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using Assignment;
+using Assignment.Models;
 using WebMatrix.WebData;
+using System.IO;
+using System.Drawing;
+using System.Drawing.Imaging;
+
 namespace Assignment.Controllers
 {
     public class MemberDetailsController : Controller
@@ -46,16 +50,66 @@ namespace Assignment.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "UserName,FirstName,LastName,EmailName,Mobile,NIC,YearOfLeaving,LastClass,Address,ProfilePic,Occupation,ProfessionalQualifications,ActivitiesDuringSchool,AdmissionNumber,DateOfAdmission")] MemberDetail memberDetail)
+    
+        public ActionResult Create(BusinessEntity model)
         {
-            memberDetail.UserName = Membership.GetUser().UserName;
-            memberDetail.Approved = false;
-            if (ModelState.IsValid)
+
+            byte[] uploadedFile = new byte[model.File.InputStream.Length];
+            model.File.InputStream.Read(uploadedFile, 0, uploadedFile.Length);
+
+
+            MemberDetail memberDetail = new MemberDetail();
+
+            //MemoryStream target = new MemoryStream();
+            //model.File.InputStream.CopyTo(target);
+            //byte[] data = target.ToArray();
+
+
+
+            Image img = Image.FromStream(model.File.InputStream);
+            MemoryStream ms = new MemoryStream();
+            img.Save(ms, ImageFormat.Bmp);
+            memberDetail.ProfilePic = ms.ToArray();
+
+
+
+
+
+
+
+            try
             {
-                db.MemberDetails.Add(memberDetail);
-                db.SaveChanges();
-                return RedirectToAction("addNominations","Account");
+                using (StudentAluminiEntities1 entities = new StudentAluminiEntities1())
+                {
+
+                    memberDetail.FirstName = model.FirstName;
+                    memberDetail.LastName = model.LastName;
+                    memberDetail.LastClass = model.LastClass;
+                    memberDetail.Mobile = model.Mobile;
+                    memberDetail.NIC = model.NIC;
+                    memberDetail.Occupation = model.Occupation;
+                    memberDetail.ProfessionalQualifications = model.ProfessionalQualifications;
+                    memberDetail.YearOfLeaving = model.YearOfLeaving;
+                    memberDetail.EmailName = model.EmailName;
+                    memberDetail.Address = model.Address;
+                    memberDetail.UserName = Membership.GetUser().UserName;
+                    memberDetail.Approved = false;
+                    if (ModelState.IsValid)
+                    {
+                        entities.MemberDetails.Add(memberDetail);
+
+
+
+
+                        entities.SaveChanges();
+                        return RedirectToAction("addNominations", "Account");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
             }
 
             return View(memberDetail);

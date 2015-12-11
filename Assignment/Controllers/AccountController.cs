@@ -35,9 +35,14 @@ namespace Assignment.Controllers
                         {
                             return Redirect(returnUrl);
                         }
-                        Session["FirstName"] = current.ElementAt(0).FirstName;
-                        Session["LastName"] = current.ElementAt(0).LastName;
-                        return RedirectToAction("Home", "Account");
+                        if (current.ElementAt(0).Approved)
+                        {
+                            Session["FirstName"] = current.ElementAt(0).FirstName;
+                            Session["LastName"] = current.ElementAt(0).LastName;
+
+                            return RedirectToAction("Home", "Account");
+                        }
+                        else { ModelState.AddModelError("", "Sorry! Your account not yet approved"); WebSecurity.Logout(); }
                     }
                     else
                     {
@@ -63,6 +68,10 @@ namespace Assignment.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Register(UserLogin userdata)
         {
+
+
+            
+
             if (ModelState.IsValid)
             {
                 try
